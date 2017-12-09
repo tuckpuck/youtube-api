@@ -10,6 +10,8 @@
 
   <iframe id="youtube_video" width="600" height="340" frameborder="0" allowfullscreen></iframe>
 
+  <div id="thumbnails"></div>
+
 </body>
 <script src="js/js.js"></script>
 
@@ -25,9 +27,19 @@ $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtub
  var link = data.items[0].link;
  var id = link.substr(link.indexOf("=")+1);
  var title = data.items[0].title;
- // console.log(title);
- $("#yt-video-name").text("Title: " + title);
+ var imageArray = [];
+ for(let i = 0; i < data.items.length; i++) {
+   imageArray.push(data.items[i].thumbnail);
+ };
+  $("#yt-video-name").text("Title: " + title);
   $("#youtube_video").attr("src","https://youtube.com/embed/"+id + "?controls=0&showinfo=0&rel=0");
+
+  console.log(imageArray);
+for(let i = 0; i < data.items.length; i++) {
+  $("#thumbnails").append("<img class='thumbnail' />");
+  $(".thumbnail").attr("src", imageArray[i]);
+  console.log(imageArray[i]);
+}
 });
 </script>
 </html>
