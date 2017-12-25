@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-  <div id="ytplayer"></div>
+  <!-- <div id="ytplayer"></div> -->
   <div id="yt-video-name"></div>
 
   <iframe id="youtube_video" width="600" height="340" frameborder="0" allowfullscreen></iframe>
@@ -28,13 +28,16 @@ $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtub
  var id = link.substr(link.indexOf("=")+1);
  var title = data.items[0].title;
  var imageArray = [];
+ var videoURLs = [];
  for(let i = 0; i < data.items.length; i++) {
    imageArray.push(data.items[i].thumbnail);
+   videoURLs.push(data.items[i].link);
  };
   $("#yt-video-name").text("Title: " + title);
   $("#youtube_video").attr("src","https://youtube.com/embed/"+id + "?controls=0&showinfo=0&rel=0");
 
   console.log(imageArray);
+  console.log(videoURLs);
 
   for(let i = 0; i < data.items.length; i++) {
   var img = $('<img />', {
